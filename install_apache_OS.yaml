@@ -4,11 +4,10 @@
   tasks: 
   
   - name: install apache2 package, install support for php, update package index
-    ansible.builtin.apt:
+    ansible.builtin.package:
       name: 
-        - apache2
-        - libapache2-mod-php
+        - "{{ apache_package }}"
+        - "{{ php_package }}"
       state: latest
       update_cache: yes
-    when: ansible_distribution == "Ubuntu"
 
