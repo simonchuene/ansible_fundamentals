@@ -1,0 +1,12 @@
+---
+- hosts: web_servers
+  tags: ubuntu
+  become: true
+  tasks:
+
+  - name: stop apache2 and libapache
+    tags: ubuntu
+    ansible.builtin.service:
+      name: apache2
+      state: reloaded
+    when: ansible_distribution == "Ubuntu"

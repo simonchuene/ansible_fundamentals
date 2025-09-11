@@ -18,11 +18,21 @@
   become: true
   tasks:
 
-
   - name: install apache2 and php support
+    tags: ubuntu
     ansible.builtin.apt:
       name: 
         - apache2
         - libapache2-mod-php
       state: latest
+
+  - name: copy html file for site
+    tags: ubuntu
+    ansible.builtin.copy:
+      src: default_site.html
+      dest: /var/www/html/index.html
+      owner: root
+      group: root
+      mode: 0644
+
 

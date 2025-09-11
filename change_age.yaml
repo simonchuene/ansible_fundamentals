@@ -1,0 +1,12 @@
+---
+- hosts: all
+  become: true
+  tasks:
+
+  - name: change line content
+    tags: ubuntu
+    ansible.builtin.lineinfile:
+      path: /home/kgothinaledi/loti
+      regexp: '^Age'
+      line: 'Age: 35'
+    when: ansible_distribution == "Ubuntu"
