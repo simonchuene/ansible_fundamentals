@@ -1,0 +1,31 @@
+---
+- hosts: all
+  become: true
+  tasks:
+
+  - name: create user
+    tags: always
+    ansible.builtin.user:
+      name: simon
+      group: root
+
+  - name: create sudoers file for simon
+    ansible.builtin.copy:
+      dest: /etc/sudoers.d/simon
+      content: "simon ALL=(ALL) NOPASSWD:ALL"
+      owner: root
+      group: root
+      mode: '0440'
+
+  - name: create .ssh folder for user simon
+    ansible.builtin.file:
+      path: /home/simon/.ssh
+      state: directory
+      mode: '0700'
+      owner: simon
+      group: root
+      
+  - name: create .ssh key for simon
+    ansible.builtin.authorized_key:
+      user: simon
+      key: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBy3GndqBs6mYZvIfZtz6o3cNiczLUzqCrOClE0n8toM kgothinaledi@uBuntu"
